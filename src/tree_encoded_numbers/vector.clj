@@ -87,6 +87,14 @@
           rval (tree-to-num (right-node tree))]
       (* (math/expt 2 lval) (+ (* 2 rval) 1)))))
 
+(defn tree-to-num-tree [tree]
+  (if (nil? tree)
+    0
+    (let [lval (tree-to-num-tree (left-node tree))
+          rval (tree-to-num-tree (right-node tree))]
+      [(* (math/expt 2 (if (vector? lval) (first lval) lval)) (+ (* 2 (if (vector? rval) (first rval) rval)) 1)) lval rval])))
+
+
 (defn tree-to-num [tree]
   (if (nil? tree)
     0
